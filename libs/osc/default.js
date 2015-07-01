@@ -41,5 +41,4 @@ export class Oscillator {
 	get freq() {
 		return this.osc.frequency;
 	}
-
 }
