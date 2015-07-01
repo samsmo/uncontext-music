@@ -16,8 +16,6 @@ export class Oscillator {
 
 		this.gain.gain.value = 0.025;
 
-		this.osc.start(0);
-
 		this.osc.connect(this.gain);
 		this.gain.connect(context.destination);
 	}
@@ -26,12 +24,12 @@ export class Oscillator {
 		this.osc.connect(destination);
 	}
 
-	start() {
-		this.gain.gain.value = 0.025;
+	start(time) {
+		this.osc.start(time);
 	}
 
-	stop() {
-		this.volume = 0;
+	stop(time) {
+		this.osc.stop(time);
 	}
 
 	set freq(val) {

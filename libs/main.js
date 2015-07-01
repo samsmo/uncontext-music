@@ -1,19 +1,24 @@
 import { Oscillator } from './osc/default';
+import context from './context';
 
 const twelthRoot = Math.pow(2, (1/12));
 
-let oscillator = new Oscillator(),
-    lfo = new Oscillator(10, 'square', 10),
-    scale = [0, 1.5, 2, 4, 5],
-    socket_ = new WebSocket('ws://duel.uncontext.com:80');
+// Major Scale, hopefully.
 
-lfo.connect(oscillator.freq);
+let    scale = [0, 2, 4, 5, 7, 9, 11, 12],
+	   socket_ = new WebSocket('ws://duel.uncontext.com:80');
 
+
+// Basic Socket stuff
+// Let notes arbitrarily overlap
 socket_.onmessage = function(data) {
     var parsed = JSON.parse(data.data),
     	steps = scale[Math.floor(parsed.f * scale.length)],
-    	freq = 440 * Math.pow(twelthRoot, steps);
+    	freq = 440 * Math.pow(twelthRoot, steps),
+    	osc = new Oscillator(freq, 'sine', 0),
+    	time = context.currentTime;
 
-    oscillator.freq = freq;
-    lfo.freq = freq * .5;
+    	osc.start(time + 5);
+    	osc.stop(time + 10);
+
 };
