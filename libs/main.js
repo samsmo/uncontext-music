@@ -18,7 +18,8 @@ socket_.onmessage = function(data) {
     	osc = new Oscillator(freq, 'sine', 0),
     	time = context.currentTime;
 
-    	osc.start(time + 5);
-    	osc.stop(time + 10);
+    	osc.start(time + (7 * parsed.d));
+    	osc.stop(time + (10 * parsed.e));
+
 
 };
